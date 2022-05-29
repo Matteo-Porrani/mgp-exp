@@ -1,0 +1,336 @@
+/* T*T -- RIDERS STYLING */
+
+
+.stats-card-rider {
+  border-bottom: 2px dotted #789;
+  padding-bottom: .5rem;
+}
+
+.rider-card__header {
+  /* background: skyblue; */
+
+}
+
+.rider-card__prog-wrapper {
+  background-color: var(--c-gray2);
+}
+
+.rider-card__prog-bar {
+  position: relative;
+  height: 18px;
+}
+
+.rider-card__prog-bar-votes {
+  background-color: var(--c-gray1);
+}
+
+.rider-card__prog-bar-points {
+  background-color: var(--c-blue);
+}
+
+.rider-card__data-tag {
+  position: absolute;
+  top: -2px;
+  left: 2px;
+
+  font-size: .75rem;
+}
+
+.rider-card__data-display {
+  position: absolute;
+  top: -2px;
+  right: 2px;
+
+  font-size: .875rem;
+
+  color: var(--bs-light);
+}
+
+
+.riders-perf-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+
+  height: 180px;
+}
+
+
+
+
+
+
+.riders-count-wrapper {
+  background-color: var(--c-gray2);
+}
+
+.stats-riders-count-prog {
+  position: relative;
+  background-color: var(--c-greenlight);
+  height: 12px;
+}
+
+.stats-riders-points-prog {
+  position: relative;
+  background-color: var(--c-red);
+  height: 12px;
+}
+
+.riders-count-display {
+  position: absolute;
+  right: 0px;
+  top: 14px;
+}
+
+/* body {
+  background-color: #f1f2f3;
+  color: #123;
+  font-family: "Exo 2", sans-serif;
+  padding: 0;
+  margin: 0;
+} */
+
+
+/* T*T -- PLAYERS STYLING */
+
+/* h3,
+p {
+  margin: 0.25rem 0;
+} */
+
+strong {
+  font-weight: 800 !important;
+}
+
+#bin1 {
+  /* border: 3px solid orange; */
+  /* background-color: #fd3; */
+}
+
+#bin2 {
+  /* border: 3px solid blue; */
+  /* background-color: #76d; */
+}
+
+.order-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  margin: 2rem 0;
+}
+
+.order-input {
+  display: none;
+  width: 20px;
+  height: 20px;
+}
+
+.order-label {
+  color: #789;
+  font-size: 1.125rem;
+  border-bottom: 4px solid transparent;
+  user-select: none;
+  padding: 0.25rem 0.5rem;
+}
+
+.order-input:checked + .order-label {
+  color: #123;
+  border-color: #fd3;
+  font-weight: 700;
+}
+
+.activate-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.activate-btn {
+  /* padding: 0.25rem; */
+}
+
+/* T*T -- CARDS */
+
+.stats-card {
+  border-bottom: 2px dotted #789;
+  padding: 0.5rem;
+  margin: 0.25rem 0 2rem;
+}
+
+.stats-card.stats-card--dark {
+  background-color: #789;
+  color: #f8f9fa;
+}
+
+.stats-card-header {
+  /* border-top: 8px solid transparent; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.stats-card-header-right {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.show-toggle {
+  width: 20px;
+  height: 20px;
+}
+
+.stats-card__content {
+  /* background: #bbb; */
+}
+
+/* card toggler */
+
+.toggler {
+  background-color: #345;
+  height: 24px;
+  width: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  margin-left: auto;
+}
+
+.toggler.active {
+  background-color: #bcd;
+  justify-content: flex-end;
+}
+
+.toggler__btn {
+  background-color: #789;
+  height: 20px;
+  width: 20px;
+  border-radius: 10px;
+}
+
+/* CARD BOX 1 & 2 */
+.box1__title,
+.box2__title {
+  display: flex;
+  /* justify-content: space-between; */
+  justify-content: flex-end;
+  gap: 1rem;
+  align-items: center;
+
+  color: #789;
+
+  padding: 0.25rem 0;
+}
+
+.stats-box-toggler {
+  /* border: 1px solid #000; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+
+input[type="checkbox"].stats-box-toggler-input {
+  /* accent-color: red; */
+  display: none;
+}
+
+.box1__content,
+.box2__content {
+  display: none;
+}
+
+input[type="checkbox"].stats-box-toggler-input:checked + .box1__content,
+input[type="checkbox"].stats-box-toggler-input:checked + .box2__content {
+  display: block;
+}
+
+/* PROGRESSION BARS */
+
+.stats-prec__wrapper,
+.stats-regul__wrapper {
+  background-color: #bcd;
+  display: flex;
+  align-items: flex-start;
+  font-size: 0.675rem;
+  height: 22px;
+  padding: 0;
+}
+
+.stats-prec__bar {
+  height: 22px;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 800;
+}
+
+.stats-prec__wp {
+  background-color: #8b2;
+}
+
+.stats-prec__bpx {
+  background-color: #e72;
+}
+
+.stats-prec__bps {
+  background-color: #fd3;
+}
+
+.stats-regul__bar {
+  background-color: #789;
+  color: #f8f9fa;
+  height: 22px;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 800;
+}
+
+.perf__wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  height: 180px;
+
+  width: 70%;
+}
+
+.squared-bg {
+  /* background-color: #e8e9ea; */
+
+  --line-col: #d0dbd7;
+
+  background-color: #f2f2f3;
+  background-image: linear-gradient(var(--line-col) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-col) 1px, transparent 1px);
+    
+  background-size: 24px 50px;
+  background-position: left 0 bottom 0;
+}
+
+.perf-display-score {
+  /* TODO - adjust margin-bottom !!! */
+
+  text-align: right;
+  font-size: 0.875rem;
+  margin-bottom: -86px;
+  margin-right: 6px;
+  z-index: 9999;
+}
+
+.step-bar {
+  /* background-color: #189; */
+  border-radius: 5px;
+  width: 24px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-align: center;
+  padding-top: 2px;
+  margin-right: 12px;
+}

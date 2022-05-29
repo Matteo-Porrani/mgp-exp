@@ -1,0 +1,106 @@
+<!-- T*T -- start form -->
+<form action="" method="POST">
+
+  <section class="my-2">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+
+          <p class="fw-bold text-center">#<?= $_SESSION['idCurrRace'] ?> - Grand Prix <?= $_SESSION['fullNameCurrRace'] ?></p>
+
+          <!-- HIDDEN INPUT -->
+          <input type="hidden" id="res_race_id" name="res_race_id" value="<?= $_SESSION['idCurrRace'] ?>">
+
+
+          <div class="row">
+            <div class="col-4 d-flex align-items-center">
+              <input type="radio" class="big-radio me-2" name="res_type" value="resultRace" id="res_type_race" checked>
+              <label for="res_type_race" class="fs-5">Course</label>
+            </div>
+
+            <div class="col-4 d-flex align-items-center">
+              <input type="radio" class="big-radio me-2" name="res_type" value="dnfRace" id="res_type_dnf">
+              <label for="res_type_race" class="fs-5">DNF</label>
+            </div>
+
+            <div class="col-4 d-flex align-items-center">
+              <input type="radio" class="big-radio me-2" name="res_type" value="gridRace" id="res_type_grid" disabled>
+              <label for="res_type_race" class="fs-5 text-gray2">Grille</label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- MK -- PREVIEW RESULTAT -->
+  <section class="my-3">
+    <div class="container">
+      <div class="row my-2">
+        <div class="col-10 border border-3 border-danger rounded rounded-3 px-2 mx-auto">
+          <ol id="resPreview" class="px-2"></ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <section class="my-2">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-12">
+          <div class="addResBtn border border-dark bg-warning rounded rounded-3 d-flex justify-content-center align-items-center p-2" data-id="emptypos" data-numb="emptypos">
+            <p class="f-cont text-center m-0">emptypos</p>
+          </div>
+
+        </div>
+
+        <!-- MK -- BUTTONS -->
+        <?php foreach ($riders as $rider) { ?>
+
+          <div class="col-2 my-2">
+
+            <div class="addResBtn border border-dark bg-warning rounded rounded-3 d-flex justify-content-center align-items-center p-2" data-id="<?= $rider['idRider'] ?>" data-numb="<?= $rider['numRider'] ?>" data-name="<?= $rider['lsNameRider'] ?> <?= $rider['fsNameRider'] ?>">
+              <p class="f-cont text-center m-0"><?= $rider['numRider'] ?></p>
+            </div>
+          </div>
+
+        <?php } ?>
+      </div>
+
+
+      <div class="row my-2">
+        <div class="col-12">
+
+          <button type="submit" class="d-block btn btn-outline-dark w-100 my-3">Enregistrer</button>
+          <p id="resResetBtn" class="d-block btn btn-outline-danger w-100 my-3">Réinitialiser</p>
+
+          <input id="resIdList" name="resIdList" class="form-control font-monospace fsz75" type="text" readonly>
+
+        </div>
+      </div>
+
+
+</form>
+
+
+
+
+
+<form action="addresult.php" method="POST" class="my-5">
+
+  <!-- HIDDEN INPUT -->
+  <input type="hidden" id="res_race_id" name="res_race_id" value="<?= $_SESSION['idCurrRace'] ?>">
+
+  <button name="setResAsNull" value="clearAll" type="submit" class="d-block btn btn-outline-danger w-100 my-3">Effacer résultat & DNF pour cette course</button>
+
+</form>
+
+
+
+</div>
+</section>

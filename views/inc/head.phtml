@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>mgp battle 2022</title>
+
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;700&display=swap" rel="stylesheet">
+
+
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/7a2e9b291a.js" crossorigin="anonymous"></script>
+
+
+  <!-- Custom CSS -->
+  <!-- NEW -- links CSS à corriger -->
+  <link rel="stylesheet" href="public/css/color.css">
+  <link rel="stylesheet" href="public/css/main.css">
+  <link rel="stylesheet" href="public/css/util.css">
+  <link rel="stylesheet" href="public/css/stats.css">
+
+  <!-- 
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/confetti.css">
+  -->
+
+</head>
+
+
+<?php
+if (isset($colorTheme) && $colorTheme == 'dark') {
+  $bodyStyle = "bg-dark";
+} else {
+  $bodyStyle = "";
+}
+?>
+
+
+<body class="<?= $bodyStyle ?>">
+
+
+  <!-- NEW -- confetti wrapper -->
+  <div class="confWrapper"></div>
+
+
+  <!-- T*T -- Modal -->
+  <div class="modal fade" id="messMod" tabindex="-1" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+
+
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          <p id="modalContent"></p>
+          <button type="button" class="btn btn-outline-dark mx-auto" data-bs-dismiss="modal">
+            OK
+          </button>
+        </div> <!-- end of modal body -->
+      </div>
+
+
+    </div>
+  </div>
+
+
+  <!-- T*T -- Offcanvas -->
+  <div id="offMenu" class="offcanvas offcanvas-end bg-dark" tabindex="-1">
+
+
+    <div class="offcanvas-header">
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+
+
+    <div class="offcanvas-body">
+
+
+      <?php if (isset($_SESSION['connected']) && $_SESSION['connected'] === true) { ?>
+        <!-- uniquement si connecté -->
+        <div id="connectedFuncs" class="mb-5">
+          <a href="user.php" class="d-block btn btn-outline-light text-start my-2">Profil</a>
+          <a href="login.php?action=edit&step=1" class="d-block btn btn-outline-light text-start my-2">Modifier mon code</a>
+          <a href="logout.php" class="d-block btn btn-outline-danger text-start my-2">Se déconnecter
+            <i class="fas fa-sign-out-alt"></i>
+          </a>
+        </div>
+      <?php } ?>
+
+
+      <div id="standardFuncs">
+        <a href="index.php" class="d-block btn btn-outline-light text-start my-2">Accueil</a>
+        <a href="cal.php" class="d-block btn btn-outline-light text-start my-2">Calendrier</a>
+        <a href="standing.php" class="d-block btn btn-outline-light text-start my-2">Classement</a>
+        <a href="stats.php" class="d-block btn btn-outline-light text-start my-2">Statistiques</a>
+        <a href="regul.php" class="d-block btn btn-outline-light text-start my-2">Règlement</a>
+      </div>
+
+
+    </div>
+  </div>
+
+
+
+
+  <!-- T*T -- header -->
+  <header class="bg-dark mb-0">
+
+    <section id="mainHeaderSection">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-6 d-flex justify-content-start align-items-center px-3 py-2">
+            <!-- A*A -- HEADER LOGO -->
+            <a href="index.php">
+              <img src="public/assets/elems/logo2.svg" class="main-logo-img" alt="">
+            </a>
+          </div>
+
+          <div class="col-6 d-flex justify-content-end align-items-center px-3 py-2">
+            <!-- A*A -- toggle button for offcanvas -->
+            <button class="btn btn-outline-light btn-no-border" type="button" data-bs-toggle="offcanvas" data-bs-target="#offMenu">
+              <i class="fas fa-bars fs-5"></i>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  </header>
+
+
+  <!-- user COLOR -->
+  <?php
+  if (isset($_SESSION['connected']) && $_SESSION['connected'] ===  true) {
+    $userColorClass = "bg-" . $_SESSION['color'];
+  } else {
+    $userColorClass = "bg-light";
+  }
+  ?>
+
+
+  <main>
+    <!-- MK -- affichage du bouton 'Se connecter' en fonction de 'PHP_SELF' -->
+
+    <!-- (+) en local utiliser '/mgpbattle/index.php -->
+    <!-- (+) en ligne utiliser '/index.php -->
+
+    <section id="userDisplay" class="disp-bd <?= $userColorClass ?>">
+      <!-- <small class="vst">#userDisplay</small> -->
+      <div class="container">
+
+        <div class="row py-1">
+          <div class="col">
+                                                                                <!-- TODO PHP_SELF -->
+            <?php if (!isset($_SESSION['connected']) && (($_SERVER['PHP_SELF'] === '/index.php') || $_SERVER['PHP_SELF'] === '/mgpbattle/index.php')) { ?>
+              <a href="login.php?action=connect" class="d-block btn btn-connect btn-outline-dark w-25 my-1 mx-auto">
+                <i class="fas fa-sign-in-alt fs-6"></i>
+              </a>
+            <?php } else if (isset($_SESSION['name']) && isset($_SESSION['type'])) { 
+              
+              $hrefUser = ($_SESSION['type'] === 'ADM') ? "admin.php" : "user.php";
+              
+              ?>
+
+              <small><a href="<?= $hrefUser ?>" class="user-link link-dark f-cont fsz75 d-block text-center"><?= $_SESSION['name'] ?></a></small>
+
+            <?php } ?>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- pages pour lesquelles la section #pageTitle n'apparaît pas -->
+    <?php $noTitle = ['Accueil', 'User', 'Admin'] ?>
+
+    <?php if (!in_array($pageTitle, $noTitle)) { ?>
+
+      <!-- A*A -- [S] page title -->
+      <section id="pageTitle" class="disp-bd bg-gray2 py-2">
+        <!-- <small class="vst">#pageTitle</small> -->
+
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <p class="page-title m-0 f-cont fsz75 text-center"><?= $pageTitle ?></p>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    <?php } ?>

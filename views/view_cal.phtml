@@ -1,0 +1,104 @@
+<section>
+  <div class="container">
+
+    <?php foreach ($races as $race) {
+
+
+
+      // TODO -- old code
+
+      $flagFilePath = "public/assets/flags/{$race['flagFileNation']}";
+      $trackFilePath = "public/assets/tracks/{$race['filenameTrack']}";
+      $displayDate = date("d/m", $race['dateRace']);
+
+      if ($race['stateRace'] == "closed") {
+        // GP terminé
+        $winner = getRiderById($race['idWinnerRace']);
+        $winnerName = $winner['lsNameRider'] . " " . substr($winner['fsNameRider'], 0, 1) . ".";
+
+        $textColor = "text-dark";
+        $flagDisplay = "";
+        $flagFilterClass = "";
+        $wrapperClass = "cal-track-wrapper-closed";
+        $btnDisplay = "";
+      } else {
+        // GP à venir
+
+        $textColor = "text-gray2";
+        $flagDisplay = " d-none";
+        $flagFilterClass = "gray90";
+        $wrapperClass = "cal-track-wrapper-open";
+        $btnDisplay = " d-none";
+      }
+
+      // TODO -- end of old code
+
+    ?>
+
+
+      <!-- separator -->
+      <div class="mt-2" style="border-bottom: 2px dotted #bcd;"></div>
+
+
+      <div class="row align-items-center px-1 my-2">
+
+        <div class="col-1 px-0 text-center">
+          <p class="f-cont text-gray2 m-0"><?= $race['idRace'] ?></p>
+
+        </div>
+
+        <div class="col-3 px-1">
+          <div class="track-wrapper w-75 mx-auto">
+            <img class="" style="" src="public/assets/tracks/<?= $race['filenameTrack'] ?>">
+
+            <div class="date-wrapper">
+              <?php if ($race['stateRace'] === "open") { ?>
+                <p class="f-cont fsz75 m-0"><?= $displayDate ?></p>
+              <?php } ?>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-7">
+
+          <p class="f-cont <?= $textColor ?> my-0"><?= $race['nameNation'] ?></p>
+
+          <!-- ligne 2 : drapeau + nom du circuit + vaincœur -->
+
+          <?php if ($race['stateRace'] === "open") { ?>
+
+           <div class="">
+              <img class="flag-img-cal" src="public/assets/flags/<?= $race['flagFileNation'] ?>" alt="">
+              <small class="fsz75 text-gray2"><?= $race['nameTrack'] ?></small>
+           </div>
+
+          <?php } else { ?>
+            <div class="mt-1">
+              <i class="fas fa-chess-board"></i>
+              <small class="fsz75 text-gray1 me-2"><?= $winnerName ?></small>
+            </div>
+          <?php } ?>
+
+
+        </div>
+
+        <div class="col-1 p-0 text-start" style="height: 100%;">
+
+          <?php if ($race['stateRace'] === 'closed') { ?>
+            <a class="link-dark text-start" href="raceresult.php?idRace=<?= $race['idRace'] ?>&idSeason=<?= $race['seasonRace'] ?>">
+              <i class="fas fs-3 fa-angle-right text-gray2"></i>
+            </a>
+
+          <?php } ?>
+
+        </div>
+
+
+      </div>
+
+    <?php } ?>
+
+
+  </div>
+</section>

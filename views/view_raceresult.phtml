@@ -1,0 +1,261 @@
+<section id="resultNav">
+  <!-- <small class="vst">#resultNav</small> -->
+
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col-3">
+        <a href="<?= $prevRaceAnch ?>" class="btn btn-outline-dark d-block my-3 <?php if ($idRace === 1) {
+                                                                                  echo "disabled";
+                                                                                } ?>">
+          <i class="fas fa-angle-left"></i>
+        </a>
+      </div>
+
+      <div class="col-6">
+        <a href="cal.php" class="btn btn-outline-dark d-block my-3">
+          <i class="fas fa-angle-double-left me-2"></i>Calendrier
+        </a>
+      </div>
+
+      <div class="col-3">
+        <a href="<?= $nextRaceAnch ?>" class="btn btn-outline-dark d-block my-3 <?php if ($idRace === $countClosedRaces) {
+                                                                                  echo "disabled";
+                                                                                } ?>">
+          <i class="fas fa-angle-right"></i>
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+<!-- MK -- num & titre du GP -->
+<section id="resultsRaceHeader" class="disp-bd mb-3">
+
+  <div class="container">
+
+    <div class="row">
+      <div class="col text-center mx-2">
+        <p class="f-cont text-gray1 mb-0"><?= "#" . $idRace ?></p>
+      </div>
+    </div>
+
+    <!-- nom du GP -->
+    <div class="row">
+      <div class="col text-center">
+        <p class="f-cont text-gray1 m-0">Grand Prix <?= $fullNameRace ?></p>
+      </div>
+    </div>
+
+    <!-- drapeau -->
+    <div class="row">
+      <div class="col-2 mx-auto text-center">
+        <img class="flag-img" src="public/assets/flags/<?= $flagFile ?>">
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- MK -- menu de page -->
+<section id="pageMenu" class="my-5">
+  <!-- <small class="vst">#pageMenu</small> -->
+
+  <div class="container">
+    <div class="row mx-2">
+      <div class="col-12 p-0">
+        <p>
+          <span id="opt2" class="opt opt__active" data-target="#betResDisplay">Pronostics</span>
+          <span id="opt1" class="opt opt__off" data-target="#raceResDisplay">Course</span>
+        </p>
+
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+
+
+
+
+<!-- T*T -- PRONOSTICS -->
+<section id="betResDisplay" class="displayOptionSection mt-3">
+  <!-- <small class="vst">#betResDisplay</small> -->
+  <div class="container">
+
+    <?php foreach ($resultDisplayData as $uRes) { ?>
+
+      <div class="row my-2">
+        <div class="col-12">
+
+          <!-- barre couleur joueur -->
+          <div class="row rounded rounded-3 p-1 mx-2 mb-1 bg-<?= $uRes['resHeader'][2] ?>"></div>
+
+          <div class="row mx-2">
+            <div class="col-7">
+              <p class="f-cont text-gray1 m-0"><?= $uRes['resHeader'][1] ?></^>
+            </div>
+            <div class="col-1">
+              <?php echo ($uRes['resHeader'][4] > 0) ? '<i class="fas fa-flag-checkered fs-4 text-' . $uRes['resHeader'][2] . '"></i>' : "" ?>
+            </div>
+            <div class="col-2 p-0 text-end">
+              <h5 class="f-cont text-center m-0"><?= $uRes['resHeader'][3] ?></h5>
+            </div>
+            <div class="col-2 p-0 text-end">
+              <button class="btn btn-outline-dark bd-gray2 mb-1" type="button" data-bs-toggle="collapse" data-bs-target="#resCollapse<?= $uRes['resHeader'][0] ?>" aria-expanded="false" aria-controls="collapseExample">
+                <i class="fas fa-angle-down text-gray2"></i>
+              </button>
+            </div>
+          </div>
+
+
+
+
+          <!-- section 'collapse' avec le détail du résultat -->
+          <div class="collapse mx-2" id="resCollapse<?= $uRes['resHeader'][0] ?>">
+            <div class="card card-body">
+
+
+              <ol>
+
+                <?php foreach ($uRes['resBody'] as $pos) {
+                  if ($pos != 'emptypos') {
+                ?>
+                    <li>
+                      <div class="row pt-1">
+
+                        <div class="col-2 p-0 text-center">
+                          <!-- icone WP / BPX / POS -->
+                          <i class="<?= $pos[0] ?>" style="font-size: 1.25rem;"></i>
+                        </div>
+
+                        <div class="col-1 p-0">
+                          <!-- badge numéro pilote -->
+                          <p class="border border-dark rounded rounded-3 m-0 rider-badge--small <?php echo ($pos[5] === 'gray2') ? "text-gray2" : "" ?>"><?= $pos[1] ?></p>
+                        </div>
+
+                        <div class="col-7">
+                          <!-- nom pilote -->
+                          <p class="m-0 <?php echo ($pos[5] === 'gray2') ? "text-gray2" : "" ?>">
+                            <span class="fw-bold"><?= $pos[2] ?></span> <?= $pos[3] ?>
+                          </p>
+                        </div>
+
+                        <div class="col-2 p-0 text-center">
+                          <!-- points -->
+                          <?php if ($pos[4] == 0) { ?>
+                            <p class="f-cont rounded rounded-3 m-0 text-<?= $pos[5] ?>"><?= $pos[4] ?></p>
+                          <?php } else { ?>
+                            <p class="f-cont rounded rounded-3 m-0 bg-<?= $pos[5] ?>"><?= $pos[4] ?></p>
+                          <?php } ?>
+                        </div>
+
+                      </div>
+
+                    </li>
+
+                <?php }
+                } ?>
+
+              </ol>
+
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+
+
+    <?php } ?>
+
+
+
+  </div>
+</section>
+
+
+
+
+
+
+<!-- T*T -- COURSE -->
+<section id="raceResDisplay" class="displayOptionSection mt-3 d-none">
+  <!-- <small class="vst">#raceResDisplay</small> -->
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12 px-4">
+
+        <ol>
+          <?php foreach ($resPositions as $idx => $pos) { ?>
+            <li>
+              <div class="row">
+                <div class="col-2 text-end">
+                  <p class="border border-dark rounded rounded-3 m-0 rider-badge--small"><?= $pos[0] ?></p>
+                </div>
+                <div class="col-8">
+                  <p class="m-0">
+                    <span class="fw-bold"><?= $pos[1] ?></span> <?= $pos[2] ?>
+                  </p>
+                </div>
+                <div class="col-1">
+                  <img class="flag-img-cal" src="public/assets/flags/<?= $pos[3] ?>" alt="">
+                </div>
+              </div>
+            </li>
+
+            <?php if ($idx === 9) { ?>
+              <div class="my-2" style="border-bottom: 2px dotted #bcd;"></div>
+            <?php } ?>
+
+          <?php } ?>
+        </ol>
+
+      </div>
+    </div>
+
+
+    <div class="row mt-5">
+      <div class="col-12 px-4">
+
+        <ol class="ol-dnf">
+
+          <p class="fw-bold text-center text-gray1">DNF</p>
+          <?php foreach ($dnfPositions as $pos) { ?>
+            <li>
+
+              <div class="row text-gray1">
+                <div class="col-2 text-end">
+                  <p class="border border-dark rounded rounded-3 m-0 rider-badge--small"><?= $pos[0] ?></p>
+                </div>
+                <div class="col-8">
+                  <p class="m-0"><span class="fw-bold"><?= $pos[1] ?></span> <?= $pos[2] ?></p>
+                </div>
+                <div class="col-1">
+                  <img class="flag-img-cal" src="public/assets/flags/<?= $pos[3] ?>" alt="">
+                </div>
+              </div>
+
+            </li>
+          <?php } ?>
+        </ol>
+
+      </div>
+    </div>
+  </div>
+
+</section>

@@ -1,0 +1,167 @@
+<section id="userInfo" class="disp-bd py-3">
+  <!-- <small class="vst">#userInfo</small> -->
+
+  <div class="container">
+
+
+    <div class="row text-center">
+      <div class="col-4 text-gray1">
+        <small class="d-block text-gray1" style="font-size: .825rem;">Position</small>
+        <p class="f-cont fs-4"><?= $userInfo['rankSumm'] ?>°</p>
+      </div>
+
+      <div class="col-4">
+        <!-- icone user -->
+        <i class="fas fa-user-circle d-block fa-3x text-center text-<?= $_SESSION['color'] ?>"></i>
+
+        <h5 class="f-cont text-center mt-2"><?= $_SESSION['name'] ?></h5>
+      </div>
+
+      <div class="col-4 text-gray1">
+        <small class="d-block text-gray1" style="font-size: .825rem;">Points</small>
+        <p class="f-cont fs-4"><?= $userInfo['totScoreSumm'] ?></p>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+
+<section id="userSummary" class="disp-bd">
+  <!-- <smal class="vst">#userSummary</smal> -->
+  <div class="container">
+
+
+
+    <hr>
+
+
+    <div class="row">
+      <div class="col-12 text-center">
+        <small class="text-gray1" style="font-size: .825rem;">Victoires de manche</small>
+
+        <div class="row">
+          <div class="col-12">
+
+            <?php if ($userInfo['winsSumm'] > 0) { ?>
+
+              <?php
+              for ($w = 1; $w <= $userInfo['winsSumm']; $w++) { ?>
+                <i class="fas mt-2 fa-flag-checkered text-<?= $userInfo['colorUser'] ?>" style="font-size: 1.5rem;"></i>
+              <?php } ?>
+
+            <?php } else { ?>
+
+              <p><span class="fw-bold">0</span></p>
+
+            <?php } ?>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-4 text-center">
+        <small class="text-gray1 d-block" style="height: 46px; line-height: 1.1;">Bien placés</small>
+        <i class="fas fa-2x fa-star d-block text-greenlight"></i>
+        <p><span class="fw-bold"><?= $userInfo['wpTotSumm'] ?></span> <span class="text-gray1">/ <?= $closedRaces * 10 ?></span></p>
+      </div>
+      <div class="col-4 text-center">
+        <small class="text-gray1 d-block" style="height: 46px; line-height: 1.1;">Mal placés podium</small>
+        <i class="fas fa-2x fa-square d-block text-orange"></i>
+        <p><span class="fw-bold"><?= $userInfo['bpxTotSumm'] ?></span> <span class="text-gray1">/ <?= $closedRaces * 10 ?></span></p>
+      </div>
+      <div class="col-4 text-center">
+        <small class="text-gray1 d-block" style="height: 46px; line-height: 1.1;">Mal placés</small>
+        <i class="fas fa-2x fa-circle d-block text-yellow"></i>
+        <p><span class="fw-bold"><?= $userInfo['bpsTotSumm'] ?></span> <span class="text-gray1">/ <?= $closedRaces * 10 ?></span></p>
+      </div>
+    </div>
+
+    <hr>
+
+  </div>
+</section>
+
+
+
+
+<section id="betDisplay" class="disp-bd">
+  <!-- <small class="vst">#userBetDisplay</small> -->
+  <div class="container">
+
+    <!-- A*A -- bet__ref -->
+    <div class="bet__ref">
+      <p class="fw-bold text-center text-gray1 fsz875"><?= $userAlert ?></p>
+    </div>
+
+    <!-- A*A -- bet__detail -->
+
+    <?php if (isset($unsBet)) { ?>
+      <div class="bet__detail border bd-gray2 rounded rounded-3 p-4">
+
+        <ol>
+          <?php foreach ($unsBet as $riderId) {
+
+            if ($riderId != "emptypos") {
+
+              $riderInfo = getRiderById($riderId); ?>
+
+              <li>
+                <div class="row">
+                  <div class="col-12 ps-4">
+                    <p class="border border-dark rounded rounded-3 my-0 me-1 rider-badge--small"><?= $riderInfo['numRider'] ?></p>
+                    <span class="fw-bold"><?= $riderInfo['lsNameRider'] ?></span>
+                    <?= $riderInfo['fsNameRider'] ?>
+
+                  </div>
+                </div>
+              </li>
+
+          <?php }
+          } ?>
+        </ol>
+
+
+        <p class="fsz75 m-0 fw-bold text-gray2 text-end"><?= "ID PRONO #" . $idBet ?></p>
+
+      </div>
+
+    <?php } ?>
+
+
+
+
+  </div>
+</section>
+
+<section id="userMainFuncs" class="disp-bd mt-3">
+  <!-- <small class="vst">#userMainFuncs</small> -->
+
+  <div class="container">
+
+    <div class="row">
+      <div class="col-12">
+        <?php if ($phase == 'white') { ?>
+          <div class="alert alert-info text-center p-1">
+            <i class="far fa-clock"></i>
+            <p class="mb-0">Les pronostics sont encore fermés.</p>
+          </div>
+        <?php } elseif ($phase == 'green') { ?>
+          <a href="<?= $betActionTarget ?>" class="d-block btn btn-outline-dark"><?= $betAction ?></a>
+        <?php } else { ?>
+          <div class="alert alert-danger text-center p-1">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p class="mb-0">Les pronostics ne peuvent plus être modifiés</p>
+          </div>
+        <?php } ?>
+
+      </div>
+    </div>
+
+  </div>
+</section>

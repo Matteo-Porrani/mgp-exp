@@ -1,0 +1,212 @@
+<!-- A*A -- [S] SPECIAL USER main functions -->
+<section id="adminMainFuncs">
+  <!-- <small class="vst">#adminMainFuncs</small> -->
+
+  <div class="container">
+
+    <!-- ligne 1 -->
+    <div class="row text-center">
+      <div class="col-6">
+        <a href="racehandler.php" class="btn btn-outline-dark d-block mt-2">
+          <i class="fas fs-5 fa-flag-checkered btn-icon"></i>
+          <br>Gestion courses
+        </a>
+      </div>
+
+      <div class="col-6">
+        <a href="raceprog.php" class="btn btn-outline-dark d-block mt-2">
+          <i class="fas fs-5 fa-traffic-light btn-icon"></i>
+          <br>Gestion phases
+        </a>
+      </div>
+    </div>
+
+    <!-- ligne 2 -->
+    <div class="row">
+      <div class="col-6">
+        <a href="addresult.php" class="btn btn-outline-dark d-block mt-2">
+          <i class="fas fs-5 fa-list-ol btn-icon"></i>
+          <br>Ajout résultat
+        </a>
+      </div>
+
+      <div class="col-6">
+        <a href="riders.php " class="btn btn-outline-dark d-block mt-2">
+          <i class="fas fs-5 fa-users btn-icon"></i>
+          <br>Activation pilotes
+        </a>
+      </div>
+    </div>
+
+    <!-- ligne 3 -->
+    <div class="row">
+      <div class="col-6">
+        <a href="betwatcher.php" class="btn btn-outline-dark d-block mt-2">
+          <i class="fas fs-5 fa-glasses btn-icon"></i>
+          <br>Situation pronostics
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+
+<!-- T*T -- #adminData -->
+<section id="adminData" class="mt-4">
+  <!-- <small class="vst">#adminData</small> -->
+
+  <div class="container">
+
+    <!-- A*A -- GP en cours -->
+    <div class="row">
+      <div class="col-12">
+        <p class="bg-warning fw-bold rounded rounded-3 text-center p-2 my-2">Événement en cours</p>
+      </div>
+    </div>
+
+    <div class="row px-3">
+      <div class="col-12">
+        <p class="mb-0 fw-bold">#<?= $currRace['idRace'] ?> — Grand Prix <?= $currRace['fullNameRace'] ?></p>
+
+        <table class="table">
+
+          <tr>
+            <td>drapeau</td>
+            <td>
+              <img src="public/assets/flags/<?= $currRace['flagFileNation'] ?>" alt="" class="flag-img">
+            </td>
+          </tr>
+
+          <tr>
+            <td>circuit</td>
+            <td class="font-monospace fw-bold">
+              <?= $currRace['nameTrack'] ?>
+            </td>
+          </tr>
+
+          <tr>
+            <td>date</td>
+            <td class="font-monospace fw-bold">
+              <?= date("d/m/Y", $currRace['dateRace']) ?>
+            </td>
+          </tr>
+
+          <tr>
+            <td>compte à rebours</td>
+            <td class="font-monospace fw-bold">
+              <?= $currRace['countdownRace'] ?></td>
+          </tr>
+
+          <tr>
+            <td>phase de course</td>
+            <td class="font-monospace fw-bold">
+              <?= $currRace['progRace'] ?></td>
+          </tr>
+
+          <tr>
+            <td>résultat enregistré</td>
+            <td class="font-monospace fw-bold">
+              <?php echo $currRace['resultRace'] === NULL ? 'N' : 'Y'; ?>
+            </td>
+          </tr>
+
+          <tr>
+            <td>scores calculés</td>
+            <td class="font-monospace fw-bold">
+              <?= $currRace['scoreCalcRace'] ?></td>
+          </tr>
+
+        </table>
+
+      </div>
+    </div>
+
+
+    <!-- A*A -- RESULTAT si déjà renseigné -->
+
+    <div class="row">
+      <div class="col-12">
+
+        <?php if (isset($unsResult)) { ?>
+
+          <p class="fw-bold text-center">Résultat</p>
+
+          <ol class="px-3" style="font-size: .875rem;">
+            <?php foreach ($unsResult as $riderId) {
+
+              if ($riderId != "emptypos") {
+
+                $riderInfo = getRiderById($riderId); ?>
+                <li>
+                  <span class="border border-dark rounded rounded-3 me-1 rider-badge--small" style="font-size: .625rem;"><?= $riderInfo['numRider'] ?></span>
+                  <?= $riderInfo['lsNameRider'] ?> <?= $riderInfo['fsNameRider'] ?>
+                </li>
+
+            <?php }
+            } ?>
+          </ol>
+
+          <p class="fw-bold px-3">DNF</p>
+
+          <!-- DNF -->
+          <ol class="px-3" style="font-size: .875rem;">
+            <?php foreach ($unsDnf as $riderId) {
+
+              $riderInfo = getRiderById($riderId); ?>
+              <li>
+                <span class="border border-dark rounded rounded-3 me-1 rider-badge--small"><?= $riderInfo['numRider'] ?></span>
+                <?= $riderInfo['lsNameRider'] ?> <?= $riderInfo['fsNameRider'] ?>
+              </li>
+
+            <?php } ?>
+
+          </ol>
+
+        <?php } else { ?>
+          <h6 class="fw-bold text-center text-danger">Le résultat n'est pas encore renseigné<br>pour cette course.</h6>
+        <?php } ?>
+      </div>
+    </div>
+
+
+
+
+    <!-- A*A -- pilotes actifs -->
+    <div class="row">
+      <div class="col-12">
+        <p class="bg-warning fw-bold rounded rounded-3 text-center p-2 my-2">Pilotes actifs</p>
+      </div>
+    </div>
+
+    <div class="row px-3">
+      <div class="col-12">
+
+        <p class="fw-bold"><?= count($activeRiders) ?> pilotes actifs</p>
+
+        <table class="table">
+
+          <?php foreach ($activeRiders as $rider) { ?>
+            <tr>
+              <td class="p-0 m-0">
+                <span class="border border-dark rounded rounded-3 me-1 rider-badge--small"><?= $rider['numRider'] ?></span>
+              </td>
+
+              <td class="p-0 m-0"><?= $rider['lsNameRider'] ?> <?= $rider['fsNameRider'] ?></td>
+            </tr>
+          <?php } ?>
+
+        </table>
+
+      </div>
+    </div>
+
+
+
+  </div>
+</section>

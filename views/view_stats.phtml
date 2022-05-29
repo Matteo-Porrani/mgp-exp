@@ -1,0 +1,264 @@
+<script>
+  const params = {
+    activeOrder: 0,
+    totalBets: <?= $closedRacesCount * 10 ?>,
+  }
+</script>
+
+
+
+
+
+
+
+<section class="my-4">
+  <div class="container">
+    <div class="row">
+
+      <div class="col">
+        <select name="" id="mainStatsSelector" class="form-select w-100">
+          <option value="players">Joueurs</option>
+          <option value="riders">Pilotes</option>
+        </select>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+<!-- T*T -- PLAYERS section -->
+<div id="statsPlayersSection" class="">
+
+  <section>
+    <div class="container">
+
+      <div class="order-wrapper">
+        <!-- A*A -- order buttons -->
+
+        <div>
+          <input class="order-input" type="radio" name="displayOrder" id="score" checked>
+          <label class="order-label me-3 d-inline-block" data-cryt="0" for="score">Score</label>
+        </div>
+
+        <div>
+          <input class="order-input" type="radio" name="displayOrder" id="precision">
+          <label class="order-label me-3 d-inline-block" data-cryt="1" for="precision">Précision</label>
+        </div>
+
+        <div>
+          <input class="order-input" type="radio" name="displayOrder" id="regularity">
+          <label class="order-label me-3 d-inline-block" data-cryt="2" for="regularity">Régularité</label>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <section class="">
+    <div class="container">
+      <div class="activate-wrapper">
+        <button class="activate-btn btn btn-outline-dark" data-action="1">Tout montrer</button>
+        <button class="activate-btn btn btn-outline-dark" data-action="0">Tout masquer</button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- MK -- BIN 1 -->
+  <section>
+    <div class="container">
+      <div class="row">
+        <div id="bin1" class="col"></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- MK -- BIN 2 -->
+  <section>
+    <div class="container">
+      <div class="row">
+        <div id="bin2" class="col"></div>
+      </div>
+    </div>
+  </section>
+
+
+</div>
+
+
+
+
+
+<!-- T*T -- RIDERS section -->
+<div id="statsRidersSection" class="d-none">
+
+
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col pt-3">
+
+          <?php foreach ($ridersStatsData as $index => $r) {
+            if ($r['votes'] > 0) {
+
+              /*
+              $filteredSteps = array_filter($r['steps'], function ($value, $key) {
+                return $value > 0;
+              }, ARRAY_FILTER_USE_BOTH);
+              */
+
+              $filteredSteps = array_slice($r['steps'], 0, $closedRacesCount, true);
+              $averageVotes = round(array_sum($filteredSteps) / count($filteredSteps), 1);
+          ?>
+
+              <!-- LOG -- test -->
+              <article class="stats-card-rider mb-4">
+
+                <!-- HEADER -->
+                <div class="row rider-card__header">
+                  <div class="col">
+                    <p class="mb-1">
+                      <span class="border border-dark rounded rounded-3 m-0 rider-badge--small"><?= $r['number'] ?></span>
+                      &nbsp;
+                      <span class="f-cont"><?= $r['fullname'] ?></span>
+                    </p>
+                  </div>
+                </div>
+
+                <!-- VOTES -->
+                <div class="row rider-card__votes">
+                  <div class="col">
+                    <p class="m-0 fsz75">votes</p>
+                    <div class="rider-card__prog-wrapper">
+                      <div class="rider-card__prog-bar rider-card__prog-bar-votes" style="width: <?= $r['votesPercent'] ?>%">
+                        <!-- <p class="rider-card__data-tag m-0">votes</p> -->
+                        <p class="rider-card__data-display m-0 fw-bold"><?= $r['votes'] ?></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- POINTS -->
+                <div class="row rider-card__votes mb-2">
+                  <div class="col">
+                    <p class="m-0 fsz75">points rapportés</p>
+                    <div class="rider-card__prog-wrapper">
+                      <div class="rider-card__prog-bar rider-card__prog-bar-points" style="width: <?= (100 / $maxScore) * $r['points'] ?>%">
+                        <!-- <p class="rider-card__data-tag m-0">points</p> -->
+                        <p class="rider-card__data-display m-0 fw-bold"><?= ($r['points'] > 0) ? $r['points'] : '' ?></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <div class="box1__title">
+                      <p class="m-0">Détails</p>
+                      <label class="stats-box-toggler btn btn-outline-dark bd-gray2" for="rider<?= $index ?>box">
+                        <i class="fas fa-angle-down text-gray2"></i>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <input id="rider<?= $index ?>box" class="stats-box-toggler-input" type="checkbox">
+                <div class="box1__content">
+                  <div class="row">
+                    <!-- GRAPH -->
+                    <div class="col-9">
+                      <div class="riders-perf-wrapper squared-bg">
+                        <?php for ($iStep = 1; $iStep <= $closedRacesCount; $iStep++) { ?>
+
+                          <div class="step-bar" style="height: <?= $r['steps'][$iStep] * 10 ?>px; background-color: var(--c-gray1); color: var(--bs-light);">
+                            <?= ($r['steps'][$iStep] > 0) ? $r['steps'][$iStep] : '' ?>
+                          </div>
+
+                        <?php } ?>
+
+
+                      </div>
+                    </div>
+                    <!-- INFOS -->
+                    <div class="col-3">
+                      <p class="text-end fsz875">
+                        Min : <strong><?= min($filteredSteps) ?></strong><br>
+                        Max : <strong><?= max($filteredSteps) ?></strong><br>
+                        Moy : <strong><?= $averageVotes ?></strong><br>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+
+
+          <?php
+            }
+          } ?>
+
+
+
+
+
+          <!-- 
+
+
+          <?php foreach ($ridersStatsData as $r) {
+
+            if ($r['votes'] > 0) {
+          ?>
+
+              <article class="mb-5">
+                <p class="mb-1">
+                  <span class="border border-dark rounded rounded-3 m-0 rider-badge--small"><?= $r['number'] ?></span>
+                  &nbsp;
+                  <span class="fw-bold"><?= $r['fullname'] ?></span>
+                </p>
+
+                <div class="riders-count-wrapper">
+                  <div class="stats-riders-count-prog" style="width: <?= $r['votesPercent'] ?>%">
+                    <p class="riders-count-display fw-bold"><?= $r['votes'] ?></p>
+                  </div>
+                </div>
+
+                <hr>
+
+                <div class="riders-count-wrapper">
+                  <div class="stats-riders-count-prog" style="width: <?= (100 / $maxScore) * $r['points'] ?>%">
+                    <p class="riders-count-display fw-bold"><?= $r['points'] ?></p>
+                  </div>
+                </div>
+
+
+                <hr>
+                <ul>
+                  <?php for ($iStep = 1; $iStep <= $closedRacesCount; $iStep++) { ?>
+                    <li><?= $r['steps'][$iStep] ?></li>
+                  <?php } ?>
+                </ul>
+
+
+
+              </article>
+
+          <?php
+            }
+          } ?>
+
+
+ -->
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+</div>

@@ -1,0 +1,276 @@
+<!-- BUG -- display NONE -->
+<section class="bg-dark p-2 d-none">
+  <div class="container">
+    <div class="border border-3 border-warning p-2">
+      <h3 class="fw-bold text-center text-warning">MAINTENANCE DU SITE <br>EN COURS<br>
+        <i class="fas fa-exclamation-triangle"></i>
+        <br>
+        MERCI DE NE PAS L'UTILISER
+      </h3>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- T*T -- [S] current race header -->
+<section id="currentRaceHeader" class="disp-bd bg-dark text-light">
+
+  <!-- <small class="vst">#currentRaceHeader</small> -->
+
+  <div class="container">
+
+    <div class="row text-center mt-0 pb-2">
+
+      <div class="col-12">
+        <!-- <small class="d-block mb-2">Prochaine course</small> -->
+
+        <p class="f-cont mt-2 mb-0">#<?= $idRace ?></p>
+
+        <!-- nom de l'événement -->
+        <p class="f-cont fs-5 mb-1">Grand Prix <?= $fullNameRace ?></p>
+
+        <!-- drapeau du pays -->
+        <img src="public/assets/flags/<?= $flagFileNation ?>" alt="" class="flag-img border border-light mb-4">
+
+
+        <!-- nom du circuit -->
+        <small class="d-block"><?= $nameTrack ?></small>
+        <!-- plan du circuit -->
+        <img src="public/assets/tracks/<?= $filenameTrack ?>" class="track-img" alt="">
+
+
+        <!-- A*A -- date de la course -->
+        <p class="f-cont fs-5 m-0"><?= $displayDateRace ?></p>
+
+      </div>
+
+    </div>
+
+  </div> <!-- end of container -->
+</section>
+
+
+
+
+
+
+<!-- T*T -- [S] countdown -->
+<?php if (!empty($_SESSION['countdownRace']) && ($progRace === 'white' || $progRace === 'green')) { ?>
+
+<section id="countdownSection" class="disp-bd bg-dark py-2">
+  <!-- <small class="vst">#countdownSection</small> -->
+
+  <div class="container">
+
+    <div class="row my-1 text-center">
+      <div class="col-12">
+
+        <!-- <span class="f-cont fw-bold text-gray1 fs-4" id="timeCount"></span> -->
+        <small class="text-light">départ dans</small>
+
+        <div class="row w-50 mx-auto gx-2 mt-2">
+
+          <div class="col-3">
+            <div class="bg-light rounded rounded-3">
+              <p id="timeD" class="f-cont text-center p-1 m-0">21</p>
+            </div>
+          </div>
+
+          <div class="col-3">
+            <div class="bg-light rounded rounded-3">
+              <p id="timeH" class="f-cont text-center p-1 m-0">9</p>
+            </div>
+          </div>
+
+          <div class="col-3">
+            <div class="bg-light rounded rounded-3">
+              <p id="timeM" class="f-cont text-center p-1 m-0">21</p>
+            </div>
+          </div>
+
+          <div class="col-3">
+            <div class="bg-light rounded rounded-3">
+              <p id="timeS" class="f-cont text-center p-1 m-0">9</p>
+            </div>
+          </div>
+
+
+        </div>
+
+        <!-- A*A -- légende -->
+        <div class="row w-50 mx-auto gx-2 mt-2">
+
+          <div class="col-3">
+            <div class="text-light">
+              <p class="f-cont text-center fsz75 m-0">J</p>
+            </div>
+          </div>
+
+          <div class="col-3">
+            <div class="text-light">
+              <p class="f-cont text-center fsz75 m-0">H</p>
+            </div>
+          </div>
+
+          <div class="col-3">
+            <div class="text-light">
+              <p class="f-cont text-center fsz75 m-0">M</p>
+            </div>
+          </div>
+
+          <div class="col-3">
+            <div class="text-light">
+              <p class="f-cont text-center fsz75 m-0">S</p>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<?php } ?>
+
+
+
+
+
+<!-- T*T -- messages de phase -->
+
+
+<section id="raceMessage" class="disp-bd bg-dark">
+  <!-- <small class="vst">#raceMessage</small> -->
+
+  <!-- <i class="fas fa-flag text-green"></i> -->
+
+  <div class="container">
+
+    <?php if ($progRace !== 'red') { ?>
+
+
+    <div class="row py-2 text-center ">
+      <div class="col-12">
+        <!-- <div class="w-50 mx-auto border border-light rounded rounded-3"> -->
+        <div class="w-50 mx-auto">
+
+          <div class="d-flex justify-content-between py-1 mx-auto">
+            <i class="<?= $lightIcon ?> light-circle light-up mx-1"></i>
+            <i class="<?= $lightIcon ?> light-circle light-up mx-1"></i>
+            <i class="<?= $lightIcon ?> light-circle light-up mx-1"></i>
+            <i class="<?= $lightIcon ?> light-circle light-up mx-1"></i>
+            <i class="<?= $lightIcon ?> light-circle light-up mx-1"></i>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <?php } ?>
+
+    <div class="row ">
+      <div class="col-12 text-center <?= $bgMessage ?> <?= $txMessage ?>">
+        <p class="fw-bold my-2"><?= $phaseMessage ?></p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+<!-- T*T -- comptage pronos -->
+
+<?php if ($progRace === 'green') { ?>
+
+<section id="betCountSection" class="disp-bd py-2">
+  <!-- <small class="vst">#betCountSection</small> -->
+
+  <div class="container">
+    <div class="row my-1 text-center">
+      <div class="col">
+        <p class="m-1 fw-bold fsz75 text-gray1"><?= $nbBets ?> / <?= $nbUsers ?></p>
+        <div id="betsCounterContainer" class="progress bg-gray2">
+          <!-- TODO -- changer valeur division en fonction du nombre users  -->
+          <div class="progress-bar progress-bar-striped progress-bar-animated bg-dark" role="progressbar"
+            aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"
+            style="width: <?php echo $nbBets * (100 / intval($nbUsers)) ?>%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<?php } ?>
+
+
+<!-- T*T -- [S] accès aux résultats (si course terminée) -->
+
+<section id="raceResultLink" class="<?php if ($stateRace == 'open') echo 'd-none'; ?>">
+  <div class="container">
+    <div class="row text-center my-2">
+      <div class="col">
+        <a href="raceresult.php?idRace=<?= $_SESSION['idCurrRace'] ?>&idSeason=<?= $_SESSION['idCurrSeason'] ?>"
+          class="btn btn-outline-dark d-block">
+          <i class="fas fa-flag-checkered d-block index-menu-icon btn-icon"></i>
+          Résultats</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- T*T -- [S] index main functions -->
+<section id="indexMainFuncs" class="disp-bd">
+
+  <!-- <small class="vst">#indexMainFuncs</small> -->
+
+  <div class="container">
+
+
+
+    <div class="row text-center">
+
+      <div class="col-12">
+        <a href="cal.php" class="btn btn-outline-dark d-block my-2">
+          <i class="fas fa-globe-americas d-block btn-icon"></i>
+          Calendrier</a>
+      </div>
+
+      <div class="col-12">
+        <a href="standing.php" class="btn btn-outline-dark d-block my-2">
+          <i class="fas fa-trophy d-block btn-icon"></i>
+          Classement</a>
+      </div>
+
+
+      <!-- <div class="col-12">
+        <div class="alert alert-danger p-1">
+          <small class="text-danger fsz75">L'accès au classement sera possible après la fin du grand prix</small>
+        </div>
+      </div> -->
+
+      <div class="col-12">
+        <a href="stats.php" class="btn btn-outline-dark d-block my-2">
+          <i class="fas fa-chart-bar d-block btn-icon"></i>
+          Statistiques</a>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+
+
+</body>
+
+</html>

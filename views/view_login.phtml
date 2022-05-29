@@ -1,0 +1,172 @@
+
+<!-- T*T -- [S] login form -->
+<section id="loginForm">
+<!-- <small class="vst">#loginForm</small> -->
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+
+        <!-- MK -- la valeur de 'action' change en fonction du contexte -->
+        <form action="<?= $formActionValue ?>" method="POST">
+
+          <!-- A*A -- userid -->
+          <div class="my-2">
+            <select name="userid" id="userid" class="form-select text-secondary text-center">
+
+              <!-- A*A -- (A) - si c'est un login normal, création de toutes les options -->
+              <?php if ($_GET['action'] ==  'connect') { ?>
+
+                <!-- option noUser -->
+                <option value="noUser" <?php
+                                        if (!$_POST || $_POST['userid'] == 'noUser') {
+                                          echo 'selected';
+                                        } ?>>-- sélectionnez un utilisateur --</option>
+
+
+                <!-- création d'options pour tous les users en bdd -->
+                <?php
+                foreach ($allUsers as $user) { 
+                  
+                  if (isset($_GET['super']) && $_GET['super'] === 'yes') {
+                    $formUserId = $user['idSuper'];
+                    $formUserName = $user['nameSuper'];
+                  } else {
+                    $formUserId = $user['idUser'];
+                    $formUserName = $user['nameUser'];
+                  }
+                  
+                  
+                  ?>
+                  <option value="<?= $formUserId ?>" <?php
+                                                            if ($_POST && $_POST['userid'] == $formUserName) {
+                                                              echo 'selected';
+                                                            } ?>><?= ucfirst($formUserName) ?></option>
+                <?php } ?>
+
+
+              <?php } ?>
+
+
+              <!-- A*A -- (B)- si c'est une modif de code, création d'une option unique, qui est déjà sélectionnée -->
+              <?php if ($_GET['action'] ==  'edit') { ?>
+                <option value="<?= $userData['idUser'] ?>"><?= ucfirst($userData['nameUser']) ?></option>
+              <?php } ?>
+            </select>
+
+          </div>
+
+          <!-- A*A -- user password (readonly input:password) -->
+          <div class="my-2">
+            <input type="password" name="usercode" id="usercode" class="form-control text-center" readonly>
+          </div>
+
+          <!-- A*A -- user instructions -->
+          <p id="codeRequest" class="text-center <?= $codeRequestColorClass ?>"><?= $codeRequestText ?></p>
+
+
+          <!-- A*A -- Keyboard -->
+          <div id="loginKeyboard" class="w-50 mx-auto">
+
+
+            <!-- Keyboard Line #1 -->
+            <div id="loginKeyboardLine1" class="d-flex justify-content-between my-3">
+              <div class="btn btn-outline-secondary keybd-btn keybd-num-btn" data-keybd="1">
+                <p class="m-0 p-0">1</p>
+              </div>
+              <div class="btn btn-outline-secondary keybd-btn keybd-num-btn" data-keybd="2">
+                <p class="m-0 p-0">2</p>
+              </div>
+              <div class="btn btn-outline-secondary keybd-btn keybd-num-btn" data-keybd="3">
+                <p class="m-0 p-0">3</p>
+              </div>
+            </div>
+
+            <!-- Keyboard Line #2 -->
+            <div id="loginKeyboardLine2" class="d-flex justify-content-between my-3">
+              <div class="btn btn-outline-secondary keybd-btn keybd-num-btn" data-keybd="4">
+                <p class="m-0 p-0">4</p>
+              </div>
+              <div class="btn btn-outline-secondary keybd-btn keybd-num-btn" data-keybd="5">
+                <p class="m-0 p-0">5</p>
+              </div>
+              <div class="btn btn-outline-secondary keybd-btn keybd-num-btn" data-keybd="6">
+                <p class="m-0 p-0">6</p>
+              </div>
+            </div>
+
+            <!-- Keyboard Line #3 -->
+            <div id="loginKeyboardLine3" class="d-flex justify-content-between my-3">
+              <div class="btn btn-outline-secondary keybd-btn keybd-num-btn" data-keybd="7">
+                <p class="m-0 p-0">7</p>
+              </div>
+              <div class="btn btn-outline-secondary keybd-btn keybd-num-btn" data-keybd="8">
+                <p class="m-0 p-0">8</p>
+              </div>
+              <div class="btn btn-outline-secondary keybd-btn keybd-num-btn" data-keybd="9">
+                <p class="m-0 p-0">9</p>
+              </div>
+            </div>
+
+            <!-- Keyboard Line #4 -->
+            <div id="loginKeyboardLine4" class="d-flex justify-content-between my-3">
+              <div class="btn btn-outline-danger keybd-btn keybd-func-btn" data-keybd="reset">
+                <p class="m-0 p-0"><i class="fas fa-times"></i></p>
+              </div>
+              <div class="btn btn-outline-secondary keybd-btn keybd-num-btn" data-keybd="0">
+                <p class="m-0 p-0">0</p>
+              </div>
+              <div class="btn btn-outline-warning keybd-btn keybd-func-btn" data-keybd="canc">
+                <p class="m-0 p-0"><i class="fas fa-backspace"></i></p>
+              </div>
+            </div>
+          </div> <!-- end of keyboard -->
+
+
+          <button name="loginBtn" id="loginBtn" class="d-block btn btn-outline-dark w-100 mt-5 disabled">OK</button>
+
+        </form>
+
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+
+
+
+
+<!-- A*A -- [S] login alerts -->
+<section id="loginAlerts">
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+
+
+
+
+        <div class="alert alert-danger text-center w-75 mx-auto my-2 
+        <?php
+        if ($alert == "") {
+          echo 'd-none';
+        } else {
+          echo 'd-block';
+        }
+        ?>">
+          <i class="fas fa-exclamation-triangle"></i>
+          <small class="d-block"><?= $alert ?></small>
+        </div>
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+
+</section>

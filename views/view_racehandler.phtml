@@ -1,0 +1,96 @@
+<section>
+
+  <div class="container">
+    
+  <div class="row p-2">
+      <div class="col-12">
+
+        <form action="racehandler.php" method="POST">
+
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col" colspan="6" class="text-center"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <?php foreach ($allRaces as $race) { ?>
+
+                <tr class="<?php if ($race['currRace'] == 'Y') {
+                              echo 'bg-warning';
+                            } ?>">
+                  <td class="p-0 m-0">
+                    <input type="radio" class="big-radio" name="activateRace" id="activateRace<?= $race['idRace'] ?>" value="<?= $race['idRace'] ?>" <?php if ($race['currRace'] == 'Y') {
+                                                                                                                                      echo 'checked';
+                                                                                                                                    } ?>>
+                  </td>
+
+                  <td class="f-cont fsz75 text-center p-0 m-0">
+                    <?= $race['idRace'] ?>
+                  </td>
+
+                  <td class="p-0 m-0">
+                    <?php if ($race['currRace'] == 'Y') { ?>
+                      <i class="fas fa-flag text-danger"></i>
+                    <?php } ?>
+                  </td>
+
+                  <td class="p-0 m-0"><?= $race['nameNation'] ?></td>
+
+                  <td class="p-0 m-0">
+                    <?php if ($race['resultRace'] !== NULL) { ?>
+                      <i class="far fa-file-alt text-secondary"></i>
+                    <?php } ?>
+                  </td>
+
+                  <td class="p-0 m-0">
+                    <?php if ($race['scoreCalcRace'] === 'Y') { ?>
+                      <i class="fas fa-star text-secondary"></i>
+                    <?php } ?>
+                  </td>
+                </tr>
+
+              <?php } ?>
+
+            </tbody>
+          </table>
+
+          <button type="submit" class="form-control d-bloc btn btn-outline-dark mt-2 mb-4">Activer la course</button>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="row my-3">
+      <div class="col text-center">
+        <p class="fw-bold">Compte à rebours</p>
+
+        <?php 
+          $countdownValue = getCurrentRace()['countdownRace'];
+          if (!empty($countdownValue)) { ?>
+
+            <p class='fw-bold font-monospace fs-5'><?= $countdownValue ?></p>
+            
+          <?php } ?>
+
+        <!-- BUG -- valeur de l'attribut action ???????? -->
+        <form action="" method="POST">
+
+          <input type="date" id="countdownDate" name="countdownDate" placeholder="date" class="form-control text-center my-2">
+          <input type="time" id="countdownDate" name="countdownTime" placeholder="time" class="form-control text-center my-2">
+
+          <button class="btn btn-outline-dark form-control">Enregistrer</button>
+
+        </form>
+
+
+      </div>
+    </div>
+  </div>
+</section>

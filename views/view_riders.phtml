@@ -1,0 +1,62 @@
+
+<section>
+  <div class="container">
+    <div class="row my-2">
+      <div class="col-12">
+
+        <form id="riderActivationForm" action="riders.php" method="POST">
+
+          <table id="ridersTable" class="table">
+
+            <thead>
+              <tr>
+                <th colspan="4"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              <?php foreach ($allRiders as $rider) { ?>
+                <tr>
+                  <td class="text-secondary"><?= $rider['idRider'] ?></td>
+
+                  <!-- switch button -->
+                  <td>
+                    <label class="switch">
+                      <input type="checkbox" name="<?= $rider['idRider'] ?>"
+                      <?php if ($rider['activeRider'] === 'Y') echo 'checked'; ?>
+                      >
+                      <span class="slider round"></span>
+                    </label>
+                  </td>
+                  
+                  <!-- nom du pilote -->
+                  <td class="<?php if ($rider['activeRider'] === 'Y') { 
+                    echo 'fw-bold text-dark'; 
+                  } else {
+                    echo 'text-gray2'; 
+                  } 
+                    ?> rider-<?= $rider['idRider'] ?>"><?= $rider['lsNameRider'] . " " . $rider['fsNameRider'] ?></td>
+
+                  <!-- numéro du pilote -->
+                  <td class="<?php if ($rider['activeRider'] === 'Y') { 
+                    echo 'fw-bold text-dark'; 
+                  } else {
+                    echo 'text-gray2'; 
+                  } 
+                    ?> rider-<?= $rider['idRider'] ?> f-cont text-center"><?= $rider['numRider'] ?></td>
+                 
+                </tr>
+              <?php } ?>
+
+            </tbody>
+          </table>
+
+          <button type="submit" class="btn btn-outline-dark form-control mb-4">Enregistrer</button>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+</section>

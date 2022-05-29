@@ -1,0 +1,137 @@
+
+/* CUSTOM UTILITY CLASSES */
+
+
+
+/* TEXT ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+.vst { /* very small text */
+  font-size: .5rem;
+  font-family: monospace;
+  color: var(--c-greenlight);
+}
+
+.f-cont {
+  font-family: "Conthrax Semibold", sans-serif;
+}
+
+.fsz75 {
+  font-size: .75rem;
+}
+
+.fsz875 {
+  font-size: .875rem;
+}
+
+
+/* BORDER ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+.disp-bd {
+  border: 0px solid var(--bs-secondary);
+}
+
+.btn-no-border {
+  border-width: 0;
+}
+
+
+
+
+
+
+/* BANDEAU USER ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+.btn-connect {
+  padding: .25rem !important;
+  font-size: .75rem;
+}
+
+.user-link {
+  color: #212529;
+  text-decoration: none !important;
+}
+
+/* MISC ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+.x-link {
+  text-decoration: none;
+}
+
+.flag-img { /* drapeau sur la page d'accueil */
+  width: 34px;
+  border: 1px solid #212529
+}
+
+.track-img { /* plan circuit sur la page d'accueil */
+  width: 90px;
+}
+
+/*
+.race-number-badge {
+  width: 30px;
+}
+*/
+
+.rider-badge--small {
+  display: inline-block;
+  width: 30px;
+  font-family: 'Conthrax SemiBold', sans-serif;
+  font-size: .75rem;
+  text-align: center;
+  /* line-height: 18px; */
+  /* letter-spacing: 2px; */
+  padding-left: 2px;
+}
+
+.big-radio {
+  width: 24px;
+  height: 24px;
+  accent-color: var(--bs-dark);
+}
+
+
+/* MENU PAGE MULTI-SECTION ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+.opt {
+  font-size: 1.25rem;
+  margin-right: 1rem;
+  padding: .25rem;
+  cursor: pointer;
+}
+
+.opt__active {
+  font-weight: 700;
+  border-bottom: 4px solid var(--c-yellow);
+}
+
+.opt__off {
+  color: var(--c-gray2);
+}
+
+
+
+/* FEU TRICOLORE & MESSAGES ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+.light-circle {
+  font-size: 1.5rem;
+}
+
+.light-up {
+  animation: animLight 3s linear infinite;
+}
+
+.light-down {
+  animation: animLight 3s linear 1.5s infinite;
+}
+
+@keyframes animLight {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

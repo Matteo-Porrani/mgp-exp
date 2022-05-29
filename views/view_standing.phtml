@@ -1,0 +1,70 @@
+<!-- section principale -->
+<section id="standingMainSection" class="py-5 px-1">
+
+
+  <?php
+  for ($r = 1; $r <= $nbUsers; $r++) {
+
+    $standData = getUserStandingData($r);
+    $name = ucfirst($standData[0]);
+    $points = $standData[1];
+    $gap = $standData[2];
+    $wins = $standData[3];
+    $uid = $standData[4];
+    $maxScore = $standData[5];
+    $color = $standData[6];
+
+    $progBarWidth = ($points * 100) / $maxScore;
+  ?>
+
+    <!-- section user -->
+    <section class="userStandingSection mb-5">
+      <div class="container">
+
+        <div class="row">
+          <div class="col">
+
+            <div class="row">
+
+              <div class="col-1 text-end">
+                <!-- position -->
+                <p class="mb-0 f-cont text-gray2"><?= $r ?></p>
+              </div>
+
+              <div class="col-11">
+                <!-- nom user -->
+                <p class="mb-0 f-cont fsz75"><?= $name ?></p>
+              </div>
+
+            </div>
+
+            <!-- progress bar -->
+            <div class="standingProgBar rounded rounded-3 bg-<?= $color ?>" style="width: <?= $progBarWidth ?>%;">
+              <p class="standingUserScore f-cont fs-4 m-0 p-0"><?= $points ?></p>
+
+              <small class="standingUserGap f-cont text-gray2 m-0 p-0">
+                <?php echo ($gap != 0) ? "-$gap" : "" ?>
+              </small>
+
+              <div class="standingUserWins">
+
+                <?php
+                for ($w = 1; $w <= $wins; $w++) {
+                  echo "<i class='d-inline-block pt-5 fas fa-flag-checkered mx-1 text-$color'></i>";
+                }
+                ?>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+  <?php } ?>
+
+
+</section> <!-- fin de la section principale -->

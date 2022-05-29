@@ -1,0 +1,258 @@
+
+@font-face {
+  font-family: "Conthrax SemiBold";
+  src: url(../assets/fonts/ConthraxSbRegular/font.woff),
+       url(../assets/fonts/ConthraxSbRegular/font.woff2);
+}
+
+
+body {
+
+  background-color: var(--bs-light);
+  color: var(--bs-dark);
+
+  max-width: 450px;
+  margin: 0 auto;
+  
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  /* font-family: "Play", sans-serif; */
+  font-family: "Exo 2", sans-serif;
+  font-weight: 300;
+
+  /* confetti */
+  overflow-x: hidden;
+}
+
+
+/* HEADER ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+.main-logo-img {
+  width: 100%;
+}
+
+
+/* FOOTER ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+footer {
+  margin-top: auto;
+}
+
+
+/* OFFCANVAS ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/* bouton close du menu offcanvas */
+.btn-close {
+  background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23f8f9fa'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat !important;
+}
+
+
+
+
+/* login ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+.keybd-btn {
+  width: 50px;
+  height: 50px;
+}
+
+.keybd-btn p {
+  pointer-events: none;
+  font-size: 1.3rem;
+}
+
+#betAlertContainer {
+  height: 90px;
+}
+
+
+
+
+/* ordered list general styling +++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+ol {
+  list-style: none;
+  counter-reset: pos-counter;
+  padding: 0 !important;
+}
+
+ol li {
+  position: relative;
+  counter-increment: pos-counter;
+  margin-left: 6px;
+}
+
+ol li::before {
+  position: absolute;
+  left: -20px;
+  top: 6px;
+  /* content: counter(pos-counter) ". "; */
+  content: counter(pos-counter);
+  color: var(--c-gray2);
+  font-weight: bold;
+  font-size: .75rem;
+  font-family: "Conthrax Semibold", sans-serif;
+  text-align: center;
+  width: 22px;
+}
+
+/* classe qui ne montre pas les numéros de ligne pour affichage DNF  */
+ol.ol-dnf li::before {
+  position: absolute;
+  left: -20px;
+  top: 6px;
+  /* content: counter(pos-counter) ". "; */
+  content: '';
+  color: var(--c-gray2);
+  font-weight: bold;
+  font-size: .75rem;
+  font-family: "Conthrax Semibold", sans-serif;
+  text-align: center;
+  width: 22px;
+}
+
+
+
+/* CALENDRIER ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.track-wrapper {
+  position: relative;
+}
+
+.date-wrapper {
+  position: absolute;
+  bottom: -6px;
+  right: 0;  
+}
+
+.flag-img-cal { /* drapeau sur la page calendrier */
+  width: 20px;
+  border: 1px solid var(--c-gray2);
+}
+
+
+
+
+
+/* CLASSEMENT GENERAL ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+.standingProgBar {
+  position: relative;
+  height: 8px;
+  animation: progBarAnim 1.3s ease-in-out 1;
+  transform-origin: left;
+}
+
+@keyframes progBarAnim {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+.standingUserScore {
+  position: absolute;
+  bottom: 4px;
+  right: 0;
+  opacity: 0;
+  animation: scoreShowAnim 1s 1.2s linear 1 forwards;
+}
+
+@keyframes scoreShowAnim {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.standingUserGap {
+  position: absolute;
+  bottom: -20px;
+  right: 0;
+  opacity: 0;
+  animation: scoreShowAnim 1s 1.2s linear 1 forwards;
+}
+
+.standingUserWins {
+  position: absolute;
+  bottom: -24px;
+  left: 0;
+  opacity: 0;
+  animation: scoreShowAnim 1s 1.2s linear 1 forwards;
+}
+
+
+
+/* ADMIN ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+#ridersTable td {
+  padding: 0.25rem !important;
+}
+
+
+
+/* SWITCH BUTTONS ++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 53px;
+  height: 30px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #6c757d;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 24px;
+  width: 24px;
+  left: 3px;
+  bottom: 3px;
+  background: var(--bs-light);
+  /* border: 1px solid #212529; */
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+/* quand la checkbox est cochée la couleur de fond du <span> change */
+input:checked+.slider {
+  background-color: var(--c-blue);
+}
+
+input:checked+.slider:before {
+  -webkit-transform: translateX(23px);
+  -ms-transform: translateX(23px);
+  transform: translateX(23px);
+}
+
+.slider.round {
+  border-radius: 15px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+

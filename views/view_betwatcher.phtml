@@ -1,0 +1,45 @@
+
+<section class="mb-3">
+  <p class="f-cont text-center my-2">Grand Prix <?= $_SESSION['fullNameCurrRace'] ?> </p>
+  <div class="text-center">
+    <img src="public/assets/flags/<?= $_SESSION['flagCurrRace'] ?>" alt="" class="flag-img">
+  </div>
+</section>
+
+
+
+<section>
+
+  <table class="table">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th scope="col">#id</th>
+        <th scope="col">Nom</th>
+        <th scope="col">État</th>
+        <th scope="col">Détails</th>
+      </tr>
+    </thead>
+    <!-- body -->
+    <tbody>
+
+      <?php foreach ($usersBetData as $user) {
+        $statusBgClass = $user['betStatus'] === 'YES' ? 'bg-success' : 'bg-danger';
+        $statusIcon = $user['betStatus'] === 'YES' ? '<i class="fas fs-3 fa-check-square"></i>' : '<i class="fas fs-3 fa-exclamation-triangle"></i>';
+      ?>
+
+        <tr>
+          <th scope="row" class="text-center"><?= $user['idUser'] ?></th>
+          <td><?= $user['nameUser'] ?></td>
+          <td class="text-center text-light <?= $statusBgClass ?>"><?= $statusIcon ?></td>
+          <td>
+            <small class="font-monospace"><?= $user['betDateTime'] ?></small>
+          </td>
+        </tr>
+
+      <?php } ?>
+
+    </tbody>
+  </table>
+
+</section>
